@@ -20,7 +20,7 @@ buildscript {
     ext {
         ktxVersion = '1.3.2'
         appCompatVersion = '1.2.0'
-        materialVersion = '1.2.1'
+        materialVersion = '1.3.0-beta01'
         constraintLayoutVersion = '2.0.4'
         fragmentVersion = '1.2.5'
         recyclerViewVersion = '1.2.0-beta01'

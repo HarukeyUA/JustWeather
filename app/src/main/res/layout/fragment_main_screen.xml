@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright 2020 Nazar Rusnak
+  ~ Copyright 2021 Nazar Rusnak
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -15,131 +15,136 @@
   ~ limitations under the License.
   -->
 
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainScreenFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/selected_city_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_normal"
-            android:layout_marginTop="@dimen/margin_normal"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
-            app:drawableStartCompat="@drawable/ic_expand"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Kiev" />
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/current_weather_container"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_normal"
-            android:layout_marginTop="@dimen/margin_normal"
-            android:layout_marginEnd="@dimen/margin_normal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/selected_city_label">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/current_weather_icon"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_margin="@dimen/margin_normal"
-                    android:scaleType="centerCrop"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:src="@drawable/ic_cloudy" />
-
-                <TextView
-                    android:id="@+id/current_weather_desc"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_normal"
-                    android:layout_marginTop="@dimen/margin_normal"
-                    android:layout_marginEnd="@dimen/margin_normal"
-                    android:layout_marginBottom="@dimen/margin_small"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    app:layout_constraintBottom_toTopOf="@id/current_temp_text"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/current_weather_icon"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="Thunderstorm with light rain" />
-
-                <TextView
-                    android:id="@+id/current_temp_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_normal"
-                    android:layout_marginEnd="@dimen/margin_normal"
-                    android:layout_marginBottom="@dimen/margin_small"
-                    android:drawablePadding="@dimen/margin_extra_small"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    app:drawableStartCompat="@drawable/ic_temperature"
-                    app:layout_constraintBottom_toTopOf="@id/current_wind_text"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/current_weather_icon"
-                    app:layout_constraintTop_toBottomOf="@id/current_weather_desc"
-                    tools:text="11 °C" />
-
-                <TextView
-                    android:id="@+id/current_wind_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_normal"
-                    android:layout_marginEnd="@dimen/margin_normal"
-                    android:layout_marginBottom="@dimen/margin_small"
-                    android:drawablePadding="@dimen/margin_extra_small"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    app:drawableStartCompat="@drawable/ic_wind"
-                    app:layout_constraintBottom_toTopOf="@id/current_humidity_text"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/current_weather_icon"
-                    app:layout_constraintTop_toBottomOf="@id/current_temp_text"
-                    tools:text="2 м/с" />
-
-                <TextView
-                    android:id="@+id/current_humidity_text"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/margin_normal"
-                    android:layout_marginEnd="@dimen/margin_normal"
-                    android:layout_marginBottom="@dimen/margin_normal"
-                    android:drawablePadding="@dimen/margin_extra_small"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-                    app:drawableStartCompat="@drawable/ic_drop"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/current_weather_icon"
-                    app:layout_constraintTop_toBottomOf="@+id/current_wind_text"
-                    tools:text="33%" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <androidx.recyclerview.widget.RecyclerView
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_normal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/current_weather_container"
-            tools:itemCount="7"
-            tools:listitem="@layout/week_forecast_item" />
+            android:layout_height="wrap_content">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+            <TextView
+                android:id="@+id/selected_city_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                app:drawableStartCompat="@drawable/ic_expand"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Kiev" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/current_weather_container"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_normal"
+                android:layout_marginTop="@dimen/margin_normal"
+                android:layout_marginEnd="@dimen/margin_normal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/selected_city_label">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/current_weather_icon"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_margin="@dimen/margin_normal"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:src="@drawable/ic_cloudy" />
+
+                    <TextView
+                        android:id="@+id/current_weather_desc"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_normal"
+                        android:layout_marginTop="@dimen/margin_normal"
+                        android:layout_marginEnd="@dimen/margin_normal"
+                        android:layout_marginBottom="@dimen/margin_small"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        app:layout_constraintBottom_toTopOf="@id/current_temp_text"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/current_weather_icon"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Thunderstorm with light rain" />
+
+                    <TextView
+                        android:id="@+id/current_temp_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_normal"
+                        android:layout_marginEnd="@dimen/margin_normal"
+                        android:layout_marginBottom="@dimen/margin_small"
+                        android:drawablePadding="@dimen/margin_extra_small"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        app:drawableStartCompat="@drawable/ic_temperature"
+                        app:layout_constraintBottom_toTopOf="@id/current_wind_text"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/current_weather_icon"
+                        app:layout_constraintTop_toBottomOf="@id/current_weather_desc"
+                        tools:text="11 °C" />
+
+                    <TextView
+                        android:id="@+id/current_wind_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_normal"
+                        android:layout_marginEnd="@dimen/margin_normal"
+                        android:layout_marginBottom="@dimen/margin_small"
+                        android:drawablePadding="@dimen/margin_extra_small"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        app:drawableStartCompat="@drawable/ic_wind"
+                        app:layout_constraintBottom_toTopOf="@id/current_humidity_text"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/current_weather_icon"
+                        app:layout_constraintTop_toBottomOf="@id/current_temp_text"
+                        tools:text="2 м/с" />
+
+                    <TextView
+                        android:id="@+id/current_humidity_text"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_normal"
+                        android:layout_marginEnd="@dimen/margin_normal"
+                        android:layout_marginBottom="@dimen/margin_normal"
+                        android:drawablePadding="@dimen/margin_extra_small"
+                        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+                        app:drawableStartCompat="@drawable/ic_drop"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/current_weather_icon"
+                        app:layout_constraintTop_toBottomOf="@+id/current_wind_text"
+                        tools:text="33%" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_normal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/current_weather_container"
+                tools:itemCount="7"
+                tools:listitem="@layout/week_forecast_item" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

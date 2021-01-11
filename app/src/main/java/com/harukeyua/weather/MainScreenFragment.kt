@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Nazar Rusnak
+ * Copyright 2021 Nazar Rusnak
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,19 +17,46 @@
 package com.harukeyua.weather
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import com.harukeyua.weather.databinding.FragmentMainScreenBinding
+import com.harukeyua.weather.viewmodels.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainScreenFragment : Fragment() {
 
+    private val weatherViewModel: WeatherViewModel by viewModels()
+
+    private lateinit var binding: FragmentMainScreenBinding
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_main_screen, container, false)
+    ): View {
+        binding = FragmentMainScreenBinding.inflate(layoutInflater)
+        subscribe()
+        setCallbacks()
+        return binding.root
+    }
+
+    private fun subscribe() {
+        weatherViewModel.selectedCity.observe(viewLifecycleOwner) { item ->
+            binding.selectedCityLabel.text = item?.name ?: "Unknown"
+        }
+    }
+
+    private fun setCallbacks() {
+
+        binding.selectedCityLabel.setOnClickListener {
+            val directions =
+                MainScreenFragmentDirections.actionMainScreenFragmentToCitySelectionFragment()
+            findNavController().navigate(directions)
+        }
+
     }
 }

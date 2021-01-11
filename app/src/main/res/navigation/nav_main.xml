@@ -25,5 +25,18 @@
         android:id="@+id/mainScreenFragment"
         android:name="com.harukeyua.weather.MainScreenFragment"
         android:label="fragment_main_screen"
-        tools:layout="@layout/fragment_main_screen" />
+        tools:layout="@layout/fragment_main_screen" >
+        <action
+            android:id="@+id/action_mainScreenFragment_to_citySelectionFragment"
+            app:destination="@id/citySelectionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/citySelectionFragment"
+        android:name="com.harukeyua.weather.CitySelectionFragment"
+        android:label="fragment_city_selection"
+        tools:layout="@layout/fragment_city_selection" >
+        <action
+            android:id="@+id/action_citySelectionFragment_to_mainScreenFragment"
+            app:destination="@id/mainScreenFragment" />
+    </fragment>
 </navigation>

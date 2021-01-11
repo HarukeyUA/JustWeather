@@ -35,6 +35,8 @@ android {
         vectorDrawables.useSupportLibrary true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "WEATHER_KEY", "\"" + getOWMApi() + "\"")
     }
 
     buildTypes {
@@ -49,6 +51,9 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding true
     }
 }
 
@@ -74,6 +79,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutinesVersion"
     implementation "com.google.dagger:hilt-android:$rootProject.hiltVersion"
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$rootProject.hiltViewModelVersion"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
     kapt "androidx.room:room-compiler:$rootProject.roomVersion"
     kapt "com.squareup.moshi:moshi-kotlin-codegen:$rootProject.moshiVersion"
@@ -83,4 +89,8 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+}
+
+def getOWMApi() {
+    return project.findProperty("owm_key")
 }
