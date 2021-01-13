@@ -41,13 +41,13 @@ class WeatherRepo @Inject constructor(
             val result = service.currentWeather(name, BuildConfig.WEATHER_KEY)
             val city = City(result.id, result.city)
             citiesDao.insertCity(city)
-            citiesDao.selectCity(name)
+            citiesDao.selectCity(result.id)
         }
     }
 
     suspend fun selectCity(city: City) {
         withContext(Dispatchers.IO) {
-            citiesDao.selectCity(city.name)
+            citiesDao.selectCity(city.id)
         }
     }
 

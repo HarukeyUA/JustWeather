@@ -34,8 +34,8 @@ interface CitiesDao {
     @Query("UPDATE savedCities SET selected = 0")
     suspend fun resetCitySelection()
 
-    @Query("UPDATE savedCities SET selected = CASE WHEN name = :cityName THEN 1 ELSE 0 END")
-    suspend fun selectCity(cityName: String)
+    @Query("UPDATE savedCities SET selected = CASE WHEN id = :cityId THEN 1 ELSE 0 END")
+    suspend fun selectCity(cityId: Long)
 
     @Update
     suspend fun updateCity(city: City)
