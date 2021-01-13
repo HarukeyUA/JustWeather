@@ -25,6 +25,6 @@ data class WeatherCondition(
     @Json(name = "feels_like") val feelsLike: Float,
     @Json(name = "temp_min") val tempMin: Float,
     @Json(name = "temp_max") val tempMax: Float,
-    val pressure: Float,
-    val humidity: Float,
+    val pressure: Int,
+    val humidity: Int
 )
