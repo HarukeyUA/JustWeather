@@ -16,20 +16,10 @@
 
 package com.harukeyua.weather.data.models
 
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
-@Entity(tableName = "currentWeather")
 @JsonClass(generateAdapter = true)
-data class CurrentWeatherResponse(
-    @PrimaryKey val id: Long,
-    val weather: List<Weather>,
-    @Embedded @Json(name = "main") val condition: WeatherCondition,
-    @Json(name = "dt") val time: Long,
-    val timezone: Long,
-    @Json(name = "name") val city: String,
-    @Embedded val wind: Wind
+data class Wind(
+    val speed: Float,
+    val deg: Int
 )
