@@ -17,14 +17,19 @@
 package com.harukeyua.weather.data
 
 import androidx.lifecycle.LiveData
-import androidx.room.*
-import com.harukeyua.weather.data.models.City
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
 import com.harukeyua.weather.data.models.CurrentWeatherResponse
 
 @Dao
 interface WeatherDao {
     @Query("SELECT * FROM currentWeather WHERE city = :city")
     fun getCurrentWeather(city: String): LiveData<CurrentWeatherResponse?>
+
+    @Query("SELECT * FROM currentWeather WHERE id = (SELECT id FROM savedCities WHERE selected)")
+    fun getCurrentWeather(): LiveData<CurrentWeatherResponse?>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCurrentWeather(weather: CurrentWeatherResponse)

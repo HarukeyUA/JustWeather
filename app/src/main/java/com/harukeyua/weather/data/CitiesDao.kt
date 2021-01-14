@@ -31,6 +31,9 @@ interface CitiesDao {
     @Query("SELECT * FROM savedCities WHERE selected")
     fun getSelectedCity(): LiveData<City>
 
+    @Query("SELECT * FROM savedCities WHERE selected")
+    suspend fun getSelectedCityValue(): City?
+
     @Query("UPDATE savedCities SET selected = 0")
     suspend fun resetCitySelection()
 

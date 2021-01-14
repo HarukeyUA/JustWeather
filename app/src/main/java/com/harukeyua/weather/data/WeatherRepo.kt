@@ -36,6 +36,9 @@ class WeatherRepo @Inject constructor(
     val selectedCity: LiveData<City>
         get() = citiesDao.getSelectedCity()
 
+    val currentWeather: LiveData<CurrentWeatherResponse?>
+        get() = weatherDao.getCurrentWeather()
+
     suspend fun saveCity(name: String) {
         withContext(Dispatchers.IO) {
             val result = service.currentWeather(name, BuildConfig.WEATHER_KEY)
@@ -51,7 +54,7 @@ class WeatherRepo @Inject constructor(
         }
     }
 
-    fun getCurrentWeather(city: String): LiveData<CurrentWeatherResponse?> {
+    fun getCurrentWeatherForCity(city: String): LiveData<CurrentWeatherResponse?> {
         return weatherDao.getCurrentWeather(city)
     }
 
@@ -59,6 +62,17 @@ class WeatherRepo @Inject constructor(
         withContext(Dispatchers.IO) {
             val response = service.currentWeather(city, BuildConfig.WEATHER_KEY)
             weatherDao.insertCurrentWeather(response)
+        }
+    }
+
+    // Update weather for selected by user city
+    suspend fun updateCurrentWeather() {
+        withContext(Dispatchers.IO) {
+            val selectedCity = citiesDao.getSelectedCityValue()
+            selectedCity?.let {
+                val response = service.currentWeather(selectedCity.name, BuildConfig.WEATHER_KEY)
+                weatherDao.insertCurrentWeather(response)
+            }
         }
     }
 
