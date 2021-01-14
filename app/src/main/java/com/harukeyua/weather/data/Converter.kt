@@ -18,11 +18,21 @@ package com.harukeyua.weather.data
 
 import androidx.room.TypeConverter
 import com.harukeyua.weather.data.models.Weather
+import com.squareup.moshi.Moshi
 
 class Converter {
     @TypeConverter
-    fun listToItem(list: List<Weather>): Int = list.first().id
+    fun listToItem(list: List<Weather>): String {
+        val moshi = Moshi.Builder().build()
+        val adapter = moshi.adapter(Weather::class.java)
+        return adapter.toJson(list.first())
+    }
 
     @TypeConverter
-    fun itemToList(conditionId: Int): List<Weather> = listOf(Weather(conditionId))
+    fun itemToList(condition: String): List<Weather> {
+        val moshi = Moshi.Builder().build()
+        val adapter = moshi.adapter(Weather::class.java)
+        val weather = adapter.fromJson(condition)
+        return listOf(weather!!)
+    }
 }
