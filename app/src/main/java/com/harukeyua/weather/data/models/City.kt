@@ -16,6 +16,7 @@
 
 package com.harukeyua.weather.data.models
 
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -23,6 +24,7 @@ import androidx.room.PrimaryKey
 data class City(
     @PrimaryKey val id: Long,
     val name: String,
+    @Embedded val coord: Coordinates,
     var selected: Boolean = false
 ) {
     override fun toString(): String = name
