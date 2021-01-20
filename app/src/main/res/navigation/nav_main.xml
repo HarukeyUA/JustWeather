@@ -28,15 +28,15 @@
         tools:layout="@layout/fragment_main_screen" >
         <action
             android:id="@+id/action_mainScreenFragment_to_citySelectionFragment"
-            app:destination="@id/citySelectionFragment" />
+            app:destination="@id/citySelectionFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/citySelectionFragment"
         android:name="com.harukeyua.weather.CitySelectionFragment"
         android:label="fragment_city_selection"
-        tools:layout="@layout/fragment_city_selection" >
-        <action
-            android:id="@+id/action_citySelectionFragment_to_mainScreenFragment"
-            app:destination="@id/mainScreenFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_city_selection" />
 </navigation>
