@@ -24,8 +24,9 @@ import androidx.room.TypeConverters
 import com.harukeyua.weather.DATABASE_NAME
 import com.harukeyua.weather.data.models.City
 import com.harukeyua.weather.data.models.CurrentWeatherResponse
+import com.harukeyua.weather.data.models.DailyForecastItem
 
-@Database(entities = [CurrentWeatherResponse::class, City::class], version = 1, exportSchema = false)
+@Database(entities = [CurrentWeatherResponse::class, City::class, DailyForecastItem::class], version = 1, exportSchema = false)
 @TypeConverters(Converter::class)
 abstract class WeatherDatabase : RoomDatabase() {
     abstract fun weatherDao(): WeatherDao

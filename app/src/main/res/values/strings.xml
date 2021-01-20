@@ -24,4 +24,5 @@
     <string name="temp_celsius">%.0f °C</string>
     <string name="meters_per_second">%.2f m/s</string>
     <string name="percent" translatable="false">%d%%</string>
+    <string name="week_day">%1$ta, %1$td</string>
 </resources>

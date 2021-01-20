@@ -39,6 +39,8 @@ class WeatherViewModel @ViewModelInject constructor(private val repo: WeatherRep
 
     val currentWeather = repo.currentWeather
 
+    val dailyForecast = repo.dailyForecast
+
     private val _saveCityStatus = MutableLiveData<AddCityStatus>()
     val saveCityStatus: LiveData<AddCityStatus>
         get() = _saveCityStatus
@@ -72,6 +74,7 @@ class WeatherViewModel @ViewModelInject constructor(private val repo: WeatherRep
     fun updateWeather() {
         viewModelScope.launch {
             repo.updateCurrentWeather()
+            repo.updateWeatherForecast()
         }
     }
 

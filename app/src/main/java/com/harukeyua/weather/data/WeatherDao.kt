@@ -22,6 +22,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.harukeyua.weather.data.models.CurrentWeatherResponse
+import com.harukeyua.weather.data.models.DailyForecastItem
 
 @Dao
 interface WeatherDao {
@@ -33,4 +34,13 @@ interface WeatherDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertCurrentWeather(weather: CurrentWeatherResponse)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertDailyForecast(forecast: List<DailyForecastItem>)
+
+    @Query("DELETE FROM dailyForecast WHERE cityId = :cityId")
+    suspend fun removeDailyForecast(cityId: Long)
+
+    @Query("SELECT * FROM dailyForecast WHERE cityId = (SELECT id FROM savedCities WHERE selected) ORDER BY dt ASC")
+    fun getDailyForecast(): LiveData<List<DailyForecastItem>>
 }

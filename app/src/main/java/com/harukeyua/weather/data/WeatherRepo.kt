@@ -21,6 +21,7 @@ import com.harukeyua.weather.BuildConfig
 import com.harukeyua.weather.api.OWMService
 import com.harukeyua.weather.data.models.City
 import com.harukeyua.weather.data.models.CurrentWeatherResponse
+import com.harukeyua.weather.data.models.DailyForecastItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -38,6 +39,9 @@ class WeatherRepo @Inject constructor(
 
     val currentWeather: LiveData<CurrentWeatherResponse?>
         get() = weatherDao.getCurrentWeather()
+
+    val dailyForecast: LiveData<List<DailyForecastItem>>
+        get() = weatherDao.getDailyForecast()
 
     suspend fun saveCity(name: String) {
         withContext(Dispatchers.IO) {
@@ -72,6 +76,29 @@ class WeatherRepo @Inject constructor(
             selectedCity?.let {
                 val response = service.currentWeather(selectedCity.name, BuildConfig.WEATHER_KEY)
                 weatherDao.insertCurrentWeather(response)
+            }
+        }
+    }
+
+    suspend fun updateWeatherForecast() {
+        withContext(Dispatchers.IO) {
+            val selectedCity = citiesDao.getSelectedCityValue()
+            selectedCity?.let {
+                val response = service.weeklyForecast(
+                    selectedCity.coord.lat,
+                    selectedCity.coord.lon,
+                    BuildConfig.WEATHER_KEY
+                )
+                val forecastList = response.daily.map { item ->
+                    DailyForecastItem.from(
+                        selectedCity.id,
+                        response.timezoneOffset,
+                        item
+                    )
+                }.drop(1) // First element is weather for current day so drop it
+
+                weatherDao.removeDailyForecast(selectedCity.id)
+                weatherDao.insertDailyForecast(forecastList)
             }
         }
     }

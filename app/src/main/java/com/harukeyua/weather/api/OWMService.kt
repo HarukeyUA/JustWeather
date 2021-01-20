@@ -18,6 +18,7 @@ package com.harukeyua.weather.api
 
 import com.harukeyua.weather.CELSIUS
 import com.harukeyua.weather.data.models.CurrentWeatherResponse
+import com.harukeyua.weather.data.models.ForecastWeatherResponse
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
@@ -32,6 +33,16 @@ interface OWMService {
         @Query("units") units: String = CELSIUS,
         @Query("lang") lang: String = "en"
     ): CurrentWeatherResponse
+
+    @GET("onecall")
+    suspend fun weeklyForecast(
+        @Query("lat") lat: Float,
+        @Query("lon") lon: Float,
+        @Query("appid") key: String,
+        @Query("units") units: String = CELSIUS,
+        @Query("lang") lang: String = "en",
+        @Query("exclude") exclude: String = "current,minutely,hourly,alerts"
+    ): ForecastWeatherResponse
 
     companion object {
         private const val BASE_URL = "https://api.openweathermap.org/data/2.5/"

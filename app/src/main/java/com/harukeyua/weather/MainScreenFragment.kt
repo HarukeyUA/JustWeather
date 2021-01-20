@@ -24,6 +24,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.harukeyua.weather.adapters.ForecastListAdapter
+import com.harukeyua.weather.data.models.Weather
 import com.harukeyua.weather.databinding.FragmentMainScreenBinding
 import com.harukeyua.weather.viewmodels.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,12 +37,16 @@ class MainScreenFragment : Fragment() {
     private val weatherViewModel: WeatherViewModel by viewModels()
 
     private lateinit var binding: FragmentMainScreenBinding
+    private val forecastAdapter = ForecastListAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentMainScreenBinding.inflate(layoutInflater)
+
+        binding.forecastList.adapter = forecastAdapter
+
         subscribe()
         setCallbacks()
 
@@ -64,10 +70,15 @@ class MainScreenFragment : Fragment() {
                         getString(R.string.percent, weather.condition.humidity)
                     currentWindText.text =
                         getString(R.string.meters_per_second, weather.wind.speed)
-                    currentWeatherIcon.setImageResource(getWeatherIcon(weather.weather[0].id))
+                    currentWeatherIcon.setImageResource(Weather.getWeatherIcon(weather.weather[0].id))
                     currentWeatherDesc.text =
                         weather.weather[0].description.capitalize(Locale.getDefault())
                 }
+            }
+
+            weatherViewModel.dailyForecast.observe(viewLifecycleOwner) { forecast ->
+                if (forecast.isNotEmpty())
+                    forecastAdapter.submitList(forecast)
             }
         }
     }
@@ -80,17 +91,4 @@ class MainScreenFragment : Fragment() {
         }
     }
 
-    private fun getWeatherIcon(condition: Int): Int {
-        return when (condition) {
-            in 200..232 -> R.drawable.ic_thunderstorms
-            in 300..511 -> R.drawable.ic_rainy
-            in 520..531 -> R.drawable.ic_showers
-            in 600..622 -> R.drawable.ic_snowy
-            in 701..781 -> R.drawable.ic_foggy
-            800 -> R.drawable.ic_sun
-            801 -> R.drawable.ic_sun_cloudy
-            in 802..804 -> R.drawable.ic_cloudy
-            else -> R.drawable.ic_sun
-        }
-    }
 }

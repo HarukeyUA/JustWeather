@@ -34,6 +34,7 @@
         tools:src="@drawable/ic_cloudy" />
 
     <TextView
+        android:id="@+id/temperature_text"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_small"
