@@ -21,7 +21,7 @@
     <string name="add_city">Add city</string>
     <string name="city_text_box_hint">Enter city name</string>
     <string name="add">Add</string>
-    <string name="temp_celsius">%.0f °C</string>
+    <string name="temp_celsius">%d °C</string>
     <string name="meters_per_second">%.2f m/s</string>
     <string name="percent" translatable="false">%d%%</string>
     <string name="week_day">%1$ta, %1$td</string>

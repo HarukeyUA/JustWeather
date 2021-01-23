@@ -26,6 +26,7 @@ import com.harukeyua.weather.data.models.DailyForecastItem
 import com.harukeyua.weather.data.models.Weather
 import com.harukeyua.weather.databinding.WeekForecastItemBinding
 import java.util.*
+import kotlin.math.roundToInt
 
 class ForecastListAdapter :
     ListAdapter<DailyForecastItem, ForecastListAdapter.ForecastViewHolder>(WeekForecastCDiffCallback()) {
@@ -36,7 +37,8 @@ class ForecastListAdapter :
         fun bind(item: DailyForecastItem) {
             with(binding) {
                 weatherIcon.setImageResource(Weather.getWeatherIcon(item.weather.id))
-                temperatureText.text = root.context.getString(R.string.temp_celsius, item.temp.day)
+                temperatureText.text =
+                    root.context.getString(R.string.temp_celsius, item.temp.day.roundToInt())
                 weekDayText.text = root.context.getString(R.string.week_day, Date(item.dt * 1000L))
             }
         }

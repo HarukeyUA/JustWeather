@@ -30,6 +30,7 @@ import com.harukeyua.weather.databinding.FragmentMainScreenBinding
 import com.harukeyua.weather.viewmodels.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
+import kotlin.math.roundToInt
 
 @AndroidEntryPoint
 class MainScreenFragment : Fragment() {
@@ -65,7 +66,7 @@ class MainScreenFragment : Fragment() {
                 Log.d("MainScreenFragment", weather.condition.temperature.toString())
                 with(binding) {
                     currentTempText.text =
-                        getString(R.string.temp_celsius, weather.condition.temperature)
+                        getString(R.string.temp_celsius, weather.condition.temperature.roundToInt())
                     currentHumidityText.text =
                         getString(R.string.percent, weather.condition.humidity)
                     currentWindText.text =
